@@ -1,0 +1,29 @@
+html
+	head
+		title #{title}
+	body
+		script(src='../../../Common Libraries/jquery-1.11.1.min.js')
+		script(src='/js/tasks_client.js')
+		h1 #{title}
+		table
+			thead
+				tr
+					th Task number
+					th Amount
+					th Noteworthy drops
+			tbody
+				- var i=1
+				each task in tasks
+					- i++
+					tr(id=('id_' + i))
+						td #{task._id}
+						td
+							input(value=(task.amount))
+						td
+							input(value=(task.noteworthyDrop))
+						td
+							button(onClick=('on_update('+i+')')) Update
+				- i++
+				tr
+					td
+						input(id='')

@@ -34,27 +34,19 @@ var load_data = function(){
 	});
 };
 
-exports.get_all = function(req, res){
+exports.get_all = function(cb){
 	db.collection('tasks', function(err, collection){
 		collection.find().toArray(function(err, items){
-			res.send(items);
+			cb(null, items);
 		});
 	});
 };
 
-exports.get_by_id = function(req, res){
-	var id = req.params.id;
-	console.log("Retrieving taskid: " + id);
-	db.collection("tasks", function(err, collection){
-		collection.findOne({"taskNumber":taskNum}, function(err, item){
-			res.send(item);
-		});
-	});
-};
+// exports.get_by_id = function(req, res){var id = req.params.id; console.log("Retrieving taskid: " + id); db.collection("tasks", function(err, collection){collection.findOne({"taskNumber":taskNum}, function(err, item){res.send(item); }); }); };
 
-exports.add_task = function(req, res){
+exports.add_task = function(task, cb){
 	var task = req.body;
-	console.log("Adding task: " + JSON.stringify(task));
+	console.log("Adding task: " + task);
 	db.collection("tasks", function(err, collection){
 		collection.insert(task, {safe:true}, function(err, result){
 			if(err){
