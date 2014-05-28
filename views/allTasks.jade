@@ -2,6 +2,7 @@ html
 	head
 		title #{title}
 	body
+		script(src='http://code.jquery.com/jquery-1.9.1.js')
 		script(src='/js/tasks_client.js')
 		h1 #{title}
 		table
@@ -13,26 +14,22 @@ html
 					th Noteworthy drops
 					th
 			tbody
-				- var i=1
+				- var i=0
 				each task in tasks
 					- i++
 					tr
-						td#tasknum
-							value=(task.taskNumber)
-						td#taskid
-							value=(task._id)
-						td#taskamt
-							value=(task.amount)
-						td#tasknwdrop
-							value=(task.noteworthyDrop)
+						td #{task.taskNumber}
+						td #{task._id}
+						td #{task.amount}
+						td #{task.noteworthyDrop}
 				- i++
-					tr
-						td
-						td
-							input(id='taskid')
-						td
-							input(id='taskamt')
-						td
-							input(id='tasknwdrop')
-						td
-							button(id='btn_add', onClick='on_add()') Add Task
+				tr
+					td
+					td
+						input(id='taskid')
+					td
+						input(id='taskamt')
+					td
+						input(id='tasknwdrop')
+					td
+						button(id='btn_add', onClick='on_add('+i+')') Add Task

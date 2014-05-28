@@ -1,8 +1,8 @@
-function on_add() {
+function on_add(num) {
   task = {};
-  task.number = $('#tasknum').val();
+  task.amount = $('#taskamt').val();
   task._id = $('#taskid').val();
-  task.taskNumber = $('#taskamt').val();
+  task.taskNumber = num;
   task.noteworthyDrop = $('#tasknwdrop').val();
 
   request = $.ajax({url:'/tasks', type:'POST', data:task});
@@ -10,6 +10,7 @@ function on_add() {
   request.done(function(msg) {
     window.location.href = "/tasks";
   });
+
   request.fail(function(jqXHR, textStatus) {
     console.err(textStatus);
   });
