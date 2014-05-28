@@ -1,8 +1,9 @@
 function on_add() {
   task = {};
+  task.number = $('#tasknum').val();
   task._id = $('#taskid').val();
-  task.fname = $('#fname').val();
-  task.lname = $('#lname').val();
+  task.taskNumber = $('#taskamt').val();
+  task.noteworthyDrop = $('#tasknwdrop').val();
 
   request = $.ajax({url:'/tasks', type:'POST', data:task});
 

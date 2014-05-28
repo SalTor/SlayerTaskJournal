@@ -4,7 +4,7 @@ var Server = mongo.Server;
 var Db = mongo.Db;
 var BSON = mongo.BSONPure;
 
-var server = new Server('127.0.0.1', 43000, {auto_reconnect: true});
+var server = new Server('127.0.0.1', 27017, {auto_reconnect: true});
 db = new Db('taskdb', server);
 
 db.open(function(err, db){
@@ -71,7 +71,7 @@ exports.update_task = function(req, res){
 				res.send({'error':'An error has occurred'});
 			}else{
 				console.log('' + result + ' document(s) updated');
-				res.send(user);
+				res.send(task);
 			}
 		});
 	});
