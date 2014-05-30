@@ -3,22 +3,25 @@ function on_add(num) {
   task.taskNumber = num;
   task.taskAmount = $('#taskAmount').val();
   task.taskName = $('#taskName').val();
-  task.taskNoteworthyDrop = $('#taskNoteworthydrop').val();
+  task.taskNoteworthyDrop = $('#taskNoteworthyDrop').val();
 
-  request = $.ajax({url:'/tasks', type:'POST', data:task});
+  if(task.taskAmount == ""||task.taskName==""||task.taskNoteworthyDrop==""){
+  }else{
+    request = $.ajax({url:'/tasks', type:'POST', data:task});
 
-  request.done(function(msg) {
-    window.location.href = "/tasks";
-  });
+    request.done(function(msg) {
+      window.location.href = "/tasks";
+    });
 
-  request.fail(function(jqXHR, textStatus) {
-    console.err(textStatus);
-  });
+    request.fail(function(jqXHR, textStatus) {
+      console.err(textStatus);
+    });
+  }
 }
 
 function on_delete(id){
-  console.log("hi", id);
-  request = $.ajax({url:'/tasks/:'+id, type:'DELETE'});
+  console.log("tasks_client", id);
+  request = $.ajax({url:'/tasks', type:'DELETE', data:id});
   request.done(function(msg){
     window.location.href = "/tasks";
   });
