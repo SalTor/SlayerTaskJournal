@@ -32,6 +32,12 @@ app.post("/tasks", function(req, res){
 	});
 }); //For adding a new task
 // app.put("/tasks/:id", tasks.update_task); //For updating task if a task is prematurely entered into journal
+app.delete('/tasks/:id', function(req, res){
+	var task = req.body;
+	tasks.delete_task(task, function(res2){
+		res.send(res2);
+	});
+});
 
 app.listen(3000);
 console.log("Server listening on localhost:3000");

@@ -22,10 +22,10 @@ db.open(function(err, db){
 var load_data = function(){
 	var tasks = [
 		{
-			_id: "Crawling Hands",
-			amount: 40,
+			taskName: "Crawling Hands",
+			taskAmount: 40,
 			taskNumber: 1,
-			noteworthyDrop: "A crawling hand!"
+			taskNoteworthyDrop: "A crawling hand!"
 		}
 	];
 
@@ -58,4 +58,18 @@ exports.add_task = function(task, cb){
 	});
 };
 
+exports.delete_task = function(req, res) {
+    var id = req.params.body;
+    console.log('Deleting task: ' + id);
+    db.collection('tasks', function(err, collection) {
+        collection.remove({'_id':id}, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred - ' + err});
+            } else {
+                console.log('' + result + ' document(s) deleted');
+                res.send(req.body);
+            }
+        });
+    });
+};
 // exports.update_task = function(req, res){var id = req.params.id; var task = req.body; console.log('Updating taskid: ' + id); console.log(JSON.stringify(task)); db.collection('tasks', function(err, collection){collection.update({'_id': id}, task, {safe:true}, function(err, result){if(err){console.log('Error updating task: ' + err); res.send({'error':'An error has occurred'}); }else{console.log('' + result + ' document(s) updated'); res.send(task); } }); }); };

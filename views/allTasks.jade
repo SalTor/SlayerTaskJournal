@@ -19,17 +19,19 @@ html
 					- i++
 					tr
 						td #{task.taskNumber}
-						td #{task._id}
-						td #{task.amount}
-						td #{task.noteworthyDrop}
+						td #{task.taskName}
+						td #{task.taskAmount}
+						td #{task.taskNoteworthyDrop}
+						td
+							button(onclick=('on_delete(#{task.taskName})')) Delete
 				- i++
 				tr
 					td
 					td
-						input(id='taskid')
+						input(id='taskName')
 					td
-						input(id='taskamt')
+						input(id='taskAmount')
 					td
-						input(id='tasknwdrop')
+						input(id='taskNoteworthydrop')
 					td
 						button(id='btn_add', onClick='on_add('+i+')') Add Task
