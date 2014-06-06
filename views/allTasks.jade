@@ -7,7 +7,7 @@ html
 
 	body
 		h1(style='margin-left:5%; margin-top:1%') #{title}
-		table.table.table-condensed.table-striped(style='max-width:50%; margin-left:15%')
+		table.table.table-condensed.table-striped(style='max-width:50%; margin-left:15%;')
 			thead
 				tr
 					th Task number
@@ -25,7 +25,7 @@ html
 						td #{task.taskAmount}
 						td #{task.taskNoteworthyDrop}
 						td 
-							button(id='btn_delete', onClick='on_delete(#{task._id})').btn Delete
+							button(onClick='on_edit(#{task._id})').btn Edit
 				- i++
 				tr
 					td
@@ -36,4 +36,4 @@ html
 					td
 						input(id='taskNoteworthyDrop', type='text', placeholder='Drops').input-small
 					td
-						button(id='btn_add', onClick='on_add('+i+')').btn Add Task
+						button(onClick='on_add('+i+')').btn Add Task

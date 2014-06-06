@@ -58,11 +58,11 @@ exports.add_task = function(task, cb){
 	});
 };
 
-exports.delete_task = function(req, res) {
+exports.update_task = function(req, res) {
     var id = req.params.body;
-    console.log('Deleting task: ' + id);
+    console.log('Updating task: ' + id);
     db.collection('tasks', function(err, collection) {
-        collection.remove({'_id':id}, {safe:true}, function(err, result) {
+        collection.update({'_id':id}, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred - ' + err});
             } else {

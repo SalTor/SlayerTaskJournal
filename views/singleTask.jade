@@ -1,0 +1,24 @@
+html
+	head
+		title #{title}
+		script(src='http://code.jquery.com/jquery-1.9.1.js')
+		script(src='/js/tasks_client.js')
+		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+
+	body
+		h1(style='margin-left:5%; margin-top:1%') #{title}
+		table.table.table-condensed.table-striped(style='max-width:50%; margin-left:15%;')
+			thead
+				tr
+					th Task Number
+					th Monster
+					th Amount
+					th Noteoworthy drops
+			tbody
+				tr
+					td #{taskNumber}
+					td #{taskName}
+					td #{taskAmount}
+					td #{taskNoteworthyDrop}
+					td
+						button(onClick='on_update').btn Update
