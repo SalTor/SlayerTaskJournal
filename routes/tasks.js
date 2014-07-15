@@ -1,5 +1,4 @@
 var mongo = require('mongodb');
-
 var Server = mongo.Server;
 var Db = mongo.Db;
 var BSON = mongo.BSONPure;
@@ -20,18 +19,8 @@ db.open(function(err, db){
 });
 
 var load_data = function(){
-	var tasks = [
-		{
-			taskName: "Crawling Hands",
-			taskAmount: 40,
-			taskNumber: 1,
-			taskNoteworthyDrop: "A crawling hand!"
-		}
-	];
-
-	db.collection('tasks', function(err, collection){
-		collection.insert(tasks, {safe:true}, function(err, result){});
-	});
+	var tasks = [{taskName: "Crawling Hands", taskAmount: 40, taskNumber: 1, taskNoteworthyDrop: "A crawling hand!"}];
+	db.collection('tasks', function(err, collection){collection.insert(tasks, {safe:true}, function(err, result){});});
 };
 
 exports.get_all = function(cb){
@@ -42,7 +31,13 @@ exports.get_all = function(cb){
 	});
 };
 
-// exports.get_by_id = function(req, res){var id = req.params.id; console.log('Retrieving taskid: ' + id); db.collection('tasks', function(err, collection){collection.findOne({'taskNumber':taskNum}, function(err, item){res.send(item); }); }); };
+exports.get_by_id = function(req, res){
+	db.collection('tasks', function(err, collection){
+		collection.findOne({'taskNumber':req.body}, function(err, item){
+			res.send(item);
+		});
+	});
+};
 
 exports.add_task = function(task, cb){
 	console.log('Adding task: ' + task);
@@ -58,18 +53,17 @@ exports.add_task = function(task, cb){
 	});
 };
 
-exports.update_task = function(req, res) {
-    var id = req.params.body;
-    console.log('Updating task: ' + id);
-    db.collection('tasks', function(err, collection) {
-        collection.update({'_id':id}, {safe:true}, function(err, result) {
-            if (err) {
-                res.send({'error':'An error has occurred - ' + err});
-            } else {
-                console.log('' + result + ' document(s) deleted');
-                res.send(req.body);
-            }
-        });
-    });
+exports.update_task = function(req, res){
+	var id = req.body;
+	console.log('Updating task: ' + id);
+	db.collection('tasks', function(err, collection){
+		collection.update({'_id':id}, {safe:true}, function(err, result){
+			if(err){
+				res.send({'error':'An error has occurred - ' + err});
+			}else{
+				console.log('' + result + ' document(s) deleted');
+				res.send(req.body);
+			}
+		});
+	});
 };
-// exports.update_task = function(req, res){var id = req.params.id; var task = req.body; console.log('Updating taskid: ' + id); console.log(JSON.stringify(task)); db.collection('tasks', function(err, collection){collection.update({'_id': id}, task, {safe:true}, function(err, result){if(err){console.log('Error updating task: ' + err); res.send({'error':'An error has occurred'}); }else{console.log('' + result + ' document(s) updated'); res.send(task); } }); }); };
